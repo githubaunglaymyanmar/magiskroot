@@ -1,0 +1,22 @@
+cat << 'EOF' > /data/adb/vr25/acc/config.txt
+
+pause=90
+
+resume=80
+
+charging_switch="/sys/class/power_supply/battery/input_suspend 0 1 --"
+
+EOF
+
+
+acc -s dp=auto
+
+
+pkill -9 -f acc
+
+
+
+acc -D start
+
+
+acc -D status
