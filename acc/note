@@ -1,0 +1,80 @@
+acc -t
+
+acc -s s
+
+acc -u -f
+
+
+
+acc -s pause=90 resume=80
+
+
+
+acc -s on_pause="echo 1 > /sys/class/power_supply/battery/input_suspend"
+
+
+
+acc -s on_resume="echo 0 > /sys/class/power_supply/battery/input_suspend"
+
+
+----
+
+
+cat << 'EOF' > /data/adb/vr25/acc/config.txt
+
+pause=90
+
+resume=80
+
+on_pause="echo 1 > /sys/class/power_supply/battery/input_suspend"
+
+on_resume="echo 0 > /sys/class/power_supply/battery/input_suspend"
+
+EOF
+
+
+
+
+cat /data/adb/vr25/acc/config.txt
+
+
+
+#------
+
+
+pkill -9 -f acc
+
+
+acc -D start
+
+acc -D status
+
+acc -D restart
+
+
+
+
+su
+
+cat << 'EOF' > /data/adb/vr25/acc/config.txt
+
+pause=90
+
+resume=80
+
+charging_switch="/sys/class/power_supply/battery/input_suspend 0 1 --"
+
+EOF
+
+
+acc -s dp=auto
+
+
+pkill -9 -f acc
+
+
+
+acc -D start
+
+
+acc -D status
